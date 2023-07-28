@@ -12,7 +12,7 @@ import {
 import { TodoActiveButton } from "./TodoActiveButton";
 
 const TodoInsertStyled = styled.form`
-    padding: 16px 16px 16px 0;
+    padding-right: 16px;
     display: flex;
     width: 100%;
 
@@ -22,7 +22,8 @@ const TodoInsertStyled = styled.form`
         background-color: transparent;
         color: #e6e6e6;
         font-size: 22px;
-        font-weight: bold;
+        writing-mode: vertical-rl;
+        line-height: 54px;
     }
 
     button.allCheckBtn.allChecked {
@@ -31,6 +32,7 @@ const TodoInsertStyled = styled.form`
 `;
 
 const TodoInsertInputStyled = styled.input`
+    padding: 16px;
     border: 0;
     outline: 0;
     background-color: transparent;
@@ -79,7 +81,7 @@ function TodoInsert() {
                 isAllCheck={isAllCheck}
                 onAllActiveTodo={handleAllActiveTodo}
             >
-                All
+                ❯
             </TodoActiveButton>
             <TodoInsertInputStyled
                 type="text"
