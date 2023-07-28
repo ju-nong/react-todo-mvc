@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { doneTodo } from "../modules/todos";
+import { useSelector, useDispatch } from "react-redux";
+import { doneTodo, Todo } from "../modules/todos";
+import { RootState } from "../modules";
 
 const Footer = styled.footer`
     display: flex;
@@ -64,6 +65,11 @@ const Footer = styled.footer`
         border: 0;
         outline: 0;
         color: #777;
+        visibility: hidden;
+
+        &.show {
+            visibility: visible;
+        }
     }
 
     & > button:hover {
@@ -114,7 +120,16 @@ function MenuButton({ menu, index, onSetFilter }: MenuButtonProps) {
 }
 
 function TodoMenu({ todoCount, onSetFilter }: TodoMenuProps) {
+    const todos = useSelector((state: RootState) =>
+        state.todos.filter((todo) => !todo.done),
+    );
     const dispatch = useDispatch();
+
+    const hasCheck = useMemo(
+        () =>
+            todos.length ? todos.some((todo: Todo) => todo.isActive) : false,
+        [todos],
+    );
 
     return (
         <Footer>
@@ -129,7 +144,10 @@ function TodoMenu({ todoCount, onSetFilter }: TodoMenuProps) {
                     />
                 ))}
             </div>
-            <button onClick={() => dispatch(doneTodo())}>
+            <button
+                className={hasCheck ? "show" : ""}
+                onClick={() => dispatch(doneTodo())}
+            >
                 Clear completed
             </button>
         </Footer>
