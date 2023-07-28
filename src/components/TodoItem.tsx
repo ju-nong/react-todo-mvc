@@ -13,10 +13,24 @@ const TodoItemStyled = styled.li`
     border-bottom: 1px solid #ededed;
     position: relative;
     font-size: 24px;
-    padding: 15px;
+    padding-left: 15px;
     display: flex;
     width: 100%;
-    justify-content: space-between;
+
+    &.editing {
+        label {
+            visibility: hidden;
+        }
+
+        span {
+            border: 1px solid #999;
+            box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            display: none;
+        }
+    }
 
     input {
         display: none;
@@ -39,6 +53,7 @@ const TodoItemStyled = styled.li`
         height: 40px;
         border: 2px solid #ededed;
         border-radius: 100%;
+        margin: 15px 0px;
     }
 
     span {
@@ -46,6 +61,8 @@ const TodoItemStyled = styled.li`
         word-break: break-all;
         line-height: 40px;
         outline: 0;
+        flex: 1;
+        padding: 15px;
     }
 
     button {
@@ -54,6 +71,16 @@ const TodoItemStyled = styled.li`
         background-color: transparent;
         padding: 5px;
         visibility: hidden;
+        font-size: 30px;
+        color: #cc9a9a;
+        transition: color 0.2s ease-out;
+        position: absolute;
+        right: 10px;
+        height: 100%;
+
+        &:hover {
+            color: #af5b5e;
+        }
     }
 
     &:hover button {
@@ -110,7 +137,7 @@ function TodoItem({
     };
 
     return (
-        <TodoItemStyled>
+        <TodoItemStyled className={`${editable ? "editing" : ""}`}>
             <input
                 id={id}
                 type="checkbox"
@@ -128,7 +155,7 @@ function TodoItem({
             >
                 {todo.text}
             </span>
-            <button onClick={() => handleClearTodo?.(todo.id)}>❌</button>
+            <button onClick={() => handleClearTodo?.(todo.id)}>×</button>
         </TodoItemStyled>
     );
 }
