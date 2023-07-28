@@ -8,7 +8,7 @@ function TodoContainer() {
         <>
             <Main />
             <Footer />
-            <ClearTodos />
+            {/* <ClearTodos /> */}
         </>
     );
 }
