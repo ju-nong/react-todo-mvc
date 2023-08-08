@@ -63,6 +63,11 @@ const TodoItemStyled = styled.li`
         outline: 0;
         flex: 1;
         padding: 15px;
+
+        &.active {
+            color: #d9d9d9;
+            text-decoration: line-through;
+        }
     }
 
     button {
@@ -148,6 +153,7 @@ function TodoItem({
             <label htmlFor={id}></label>
             <span
                 contentEditable={editable}
+                className={todo.isActive ? "active" : ""}
                 onDoubleClick={() => setEditable(true)}
                 onBlur={actionEdit}
                 onKeyDown={enterCheck}
