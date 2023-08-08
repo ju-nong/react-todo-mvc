@@ -11,6 +11,10 @@ const Footer = styled.footer`
     padding: 5px 15px;
     color: #777;
 
+    &.hide {
+        display: none;
+    }
+
     &:before {
         content: "";
         position: absolute;
@@ -85,6 +89,7 @@ type Menu = {
 type Menus = Menu[];
 
 interface TodoMenuProps {
+    isShow: boolean;
     todoCount: number;
     onSetFilter: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -119,7 +124,7 @@ function MenuButton({ menu, index, onSetFilter }: MenuButtonProps) {
     );
 }
 
-function TodoMenu({ todoCount, onSetFilter }: TodoMenuProps) {
+function TodoMenu({ isShow, todoCount, onSetFilter }: TodoMenuProps) {
     const todos = useSelector((state: RootState) =>
         state.todos.filter((todo) => !todo.done),
     );
@@ -132,7 +137,7 @@ function TodoMenu({ todoCount, onSetFilter }: TodoMenuProps) {
     );
 
     return (
-        <Footer>
+        <Footer className={isShow ? "" : "hide"}>
             <span>{todoCount} items left</span>
             <div className="menu">
                 {menus.map((menu, index) => (

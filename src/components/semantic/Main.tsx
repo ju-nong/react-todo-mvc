@@ -40,9 +40,12 @@ function Main() {
         <MainStyled>
             <Header />
             <TodoList todos={filterTodos} />
-            {todos.length > 0 && (
-                <TodoMenu todoCount={todoCount} onSetFilter={handleSetFilter} />
-            )}
+
+            <TodoMenu
+                isShow={todos.length > 0}
+                todoCount={todoCount}
+                onSetFilter={handleSetFilter}
+            />
         </MainStyled>
     );
 }
